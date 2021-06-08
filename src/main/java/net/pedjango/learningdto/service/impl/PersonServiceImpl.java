@@ -137,6 +137,7 @@ public class PersonServiceImpl implements PersonService {
         Optional<Person> optional = personRepository.findById(id);
         Person person = optional.orElse(null);
         if (person != null) {
+            contactRepository.deleteAllInBatch(person.getContacts());
             personRepository.deleteById(id);
 
             HttpHeaders response = new HttpHeaders();
